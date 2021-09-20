@@ -52,10 +52,12 @@ export const onAppInitialized = (searchOnInit) => {
 };
 
 export const updateQueryState = (queryState) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const {query: {size, page}} = getState()
+
     dispatch({
       type: SET_QUERY_STATE,
-      payload: queryState,
+      payload: {size, page, ...queryState},
     });
     dispatch(executeQuery());
   };
